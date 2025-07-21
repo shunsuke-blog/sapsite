@@ -8,10 +8,10 @@ import Link from 'next/link'; // Linkコンポーネントをインポート (�
 import { formatDate } from '@/lib/utils'; // 日付フォーマット関数をインポート
 import TwoColumnLayout from '@/components/TwoColumnLayout';
 import SidebarContentTableOfContents from '@/components/SidebarContentTableOfContents';
-import { CATEGORY_SLUG_MAP } from '@/constants/categories';
+import { CATEGORY_SLUG_MAP, getSlugFromDisplayName } from '@/constants/categories';
+
 
 interface BlogDetailPageProps {
-  // params: {slug: string;};
   params: Promise<{ slug: string }>;
 }
 
@@ -68,6 +68,8 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   const cleanBody = DOMPurify.sanitize(post.content);
   const updatedDate = formatDate(post.updatedAt);
+  const categoryDisplayName = post.category?.name;
+  const categorySlug = categoryDisplayName ? getSlugFromDisplayName(categoryDisplayName) : undefined;
 
   // 左側のメインコンテンツ（記事本体）を定義
   const leftContent = (
@@ -81,14 +83,16 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
               ホーム
             </Link>
           </li>
-          {post.category && (
+          {/* ★修正: categorySlug が存在する場合のみリンクを生成 */}
+          {post.category && categorySlug && ( // categorySlug が取得できた場合のみリンク表示
             <>
-              {/* <li>&gt;</li>  */}
               <li>▶︎</li> {/* 区切り文字 */}
               <li>
-                {/* カテゴリページへのリンクがあれば、ここにLinkを追加 */}
-                <Link href={`/posts/category/${CATEGORY_SLUG_MAP[post.category.name.toLowerCase()]}`}>
-                  <span className="font-semibold hover:underline ml-5">{post.category.name}</span>
+                <Link
+                  href={`/posts/category/${categorySlug}`} // ★getSlugFromDisplayName で得たスラッグを使用
+                  className="font-semibold hover:underline ml-5"
+                >
+                  {post.category.name} {/* 表示名はそのまま */}
                 </Link>
               </li>
             </>

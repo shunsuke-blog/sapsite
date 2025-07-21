@@ -1,0 +1,57 @@
+// src/app/posts/category/[categorySlug]/page.tsx
+
+import Link from 'next/link';
+import { getPostsByCategory } from '@/lib/posts';
+import { Post } from '@/types/post';
+import { CATEGORY_SLUG_MAP, CATEGORY_SLUGS } from '@/constants/categories';
+import { notFound } from 'next/navigation';
+import PostListSection from '@/app/posts/_components/PostListSection';
+import TwoColumnLayout from '@/components/TwoColumnLayout';
+import SidebarContentAds from '@/components/SidebarContentAds';
+
+export async function generateStaticParams() {
+  return CATEGORY_SLUGS.map((slug) => ({
+    categorySlug: slug,
+  }));
+}
+
+export default async function CategoryPostsPage({ params }: { params: { categorySlug: string } }) {
+  const categoryName = CATEGORY_SLUG_MAP[params.categorySlug];
+
+  if (!categoryName) {
+    notFound();
+  }
+
+  const posts: Post[] = await getPostsByCategory(categoryName);
+
+  const leftContent = !posts || posts.length === 0 ? ( // 条件式 ? 真の場合のJSX : 偽の場合のJSX
+    // 記事がない場合
+    <>
+      <h1 className="text-4xl font-extrabold mb-10 text-main-text border-b-4 border-brand-primary pb-4">
+        カテゴリ: &quot;{categoryName}&quot; の記事
+      </h1>
+      <p className="text-sub-text">このカテゴリにはまだ記事がありません。</p>
+      <div className="mt-8">
+        <Link href="/posts" className="text-brand-primary hover:underline">
+          すべての記事に戻る &rarr;
+        </Link>
+      </div>
+    </>
+  ) : (
+    // 記事がある場合
+    <>
+      <h1 className="text-4xl font-extrabold mb-10 text-main-text border-b-4 border-brand-primary pb-4">
+        カテゴリ: &quot;{categoryName}&quot; の記事
+      </h1>
+      <PostListSection posts={posts} />
+    </>
+  );
+
+  const rightContent = (
+    <SidebarContentAds /> // 広告用のサイドバーコンポーネント
+  )
+
+  return (
+    <TwoColumnLayout left={leftContent} right={rightContent} />
+  );
+}

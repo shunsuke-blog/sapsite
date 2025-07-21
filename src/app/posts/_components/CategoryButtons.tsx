@@ -1,6 +1,7 @@
 // src/app/posts/_components/CategoryButtons.tsx
 
 import Link from 'next/link';
+import { CATEGORY_SLUG_MAP } from '@/constants/categories';
 
 interface CategoryButtonsProps {
   categories: string[];
@@ -9,10 +10,6 @@ interface CategoryButtonsProps {
 export default function CategoryButtons({ categories }: CategoryButtonsProps) {
   // ユーザーの要件「5つほど」に合わせて、カテゴリが少ない場合は「すべて見る」などを追加
   const displayCategories = [...categories];
-  // 例: カテゴリが3つしかなくても、5つ表示したい場合は、
-  // 追加のボタン（例: 「すべて見る」「Webサイト制作」）をここで定義します。
-  // getAllCategories関数で既に「Webサイト制作」「その他」を追加しているので、
-  // ここではそのままcategoriesを使います。
 
   return (
     <div className="flex flex-wrap gap-3 justify-center md:justify-start">
