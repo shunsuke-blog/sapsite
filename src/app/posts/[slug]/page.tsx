@@ -10,9 +10,6 @@ import TwoColumnLayout from '@/components/TwoColumnLayout';
 import SidebarContentTableOfContents from '@/components/SidebarContentTableOfContents';
 import { CATEGORY_SLUG_MAP } from '@/constants/categories';
 
-
-// type Props = { params: { slug: string } };
-
 interface BlogDetailPageProps {
   // params: {slug: string;};
   params: Promise<{ slug: string }>;
