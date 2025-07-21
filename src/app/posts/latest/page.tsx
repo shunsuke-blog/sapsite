@@ -27,9 +27,9 @@ export default async function LatestPostsPage() {
 
   const rightContent = (
     <div className="space-y-6">
-      <CardAd /> // 広告用のサイドバーコンポーネント
-      <CardPopularPosts /> // 広告用のサイドバーコンポーネント
-      <CardProfile /> // 広告用のサイドバーコンポーネント
+      <CardAd />
+      <CardPopularPosts />
+      <CardProfile />
     </div>
   );
 
