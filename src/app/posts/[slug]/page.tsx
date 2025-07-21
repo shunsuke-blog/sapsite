@@ -13,10 +13,9 @@ import { CATEGORY_SLUG_MAP } from '@/constants/categories';
 
 // type Props = { params: { slug: string } };
 
-interface BlogDetailPage {
-  params: {
-    slug: string;
-  };
+interface BlogDetailPageProps {
+  // params: {slug: string;};
+  params: Promise<{ slug: string }>;
 }
 
 // サムネイルの型定義
@@ -40,6 +39,7 @@ type Blog = {
   updatedAt: string;
   thumbnail?: Thumbnail;
   category?: Category;
+  slug: string;
 };
 
 type MicroCMSContentId = {
@@ -53,15 +53,19 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function BlogDetailPage({ params }: BlogDetailPage) {
+export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
   let post: Blog;
   try {
     post = await client.get({
       endpoint: 'blogs',
-      contentId: params.slug,
+      // contentId: params.slug,
+      contentId: slug,
     }) as Blog
   } catch (err) {
-    console.error(`Failed to fetch blog post with slug: ${params.slug}`, err); // エラーログを追加
+    // console.error(`Failed to fetch blog post with slug: ${params.slug}`, err); // エラーログを追加
+    console.error(`Failed to fetch blog post with slug: ${slug}`, err); // エラーログを追加
     notFound();
   }
 
