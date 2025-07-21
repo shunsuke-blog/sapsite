@@ -13,7 +13,7 @@ import { CATEGORY_SLUG_MAP } from '@/constants/categories';
 
 // type Props = { params: { slug: string } };
 
-interface BlogDetailPageProps {
+interface BlogDetailPage {
   params: {
     slug: string;
   };
@@ -53,7 +53,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
+export default async function BlogDetailPage({ params }: BlogDetailPage) {
   let post: Blog;
   try {
     post = await client.get({
