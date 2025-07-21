@@ -10,7 +10,7 @@ export const formatDate = (dateString: string): string => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1; // getMonth()は0から始まるため+1する
   const day = date.getDate();
-  return `${year}年${month}月${day}日`;
+  return `${year}/${month}/${day}`;
 };
 
 /**
