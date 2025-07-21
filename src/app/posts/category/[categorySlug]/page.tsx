@@ -7,7 +7,9 @@ import { CATEGORY_SLUG_MAP, CATEGORY_SLUGS } from '@/constants/categories';
 import { notFound } from 'next/navigation';
 import PostListSection from '@/app/posts/_components/PostListSection';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
-import SidebarContentAds from '@/components/SidebarContentAds';
+import CardAd from '@/components/sidebar-cards/CardAd';
+import CardPopularPosts from '@/components/sidebar-cards/CardPopularPosts';
+import CardProfile from '@/components/sidebar-cards/CardProfile';
 
 export async function generateStaticParams() {
   return CATEGORY_SLUGS.map((slug) => ({
@@ -34,7 +36,7 @@ export default async function CategoryPostsPage({ params }: { params: Promise<{ 
     // 記事がない場合
     <>
       <h1 className="text-4xl font-extrabold mb-10 text-main-text border-b-4 border-brand-primary pb-4">
-        カテゴリ: &quot;{categoryName}&quot; の記事
+        カテゴリ: &quot;{categoryName}&quot;
       </h1>
       <p className="text-sub-text">このカテゴリにはまだ記事がありません。</p>
       <div className="mt-8">
@@ -47,14 +49,20 @@ export default async function CategoryPostsPage({ params }: { params: Promise<{ 
     // 記事がある場合
     <>
       <h1 className="text-4xl font-extrabold mb-10 text-main-text border-b-4 border-brand-primary pb-4">
-        カテゴリ: &quot;{categoryName}&quot; の記事
+        カテゴリ: &quot;{categoryName}&quot;
       </h1>
       <PostListSection posts={posts} />
     </>
   );
 
   const rightContent = (
-    <SidebarContentAds /> // 広告用のサイドバーコンポーネント
+    <div className="space-y-6"> {/* 各カード間の余白 */}
+      {/* 広告カード */}
+      <CardAd />
+      <CardPopularPosts />
+      {/* 自己紹介カード */}
+      <CardProfile />
+    </div>
   )
 
   return (

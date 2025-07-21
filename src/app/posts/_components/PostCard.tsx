@@ -33,7 +33,7 @@ export default function PostCard({ post }: PostCardProps) {
         </div>
 
         {/* タイトルと日付表示エリア */}
-        <div className="p-1 flex flex-col flex-grow mt-1 mx-2">
+        <div className="p-1 flex flex-col flex-grow mx-2">
           <h3 className="text-xl font-bold text-main-text group-hover:text-brand-primary transition-colors flex-grow leading-tight line-clamp-2">
             {post.title}
           </h3>

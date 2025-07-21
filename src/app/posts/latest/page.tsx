@@ -3,7 +3,9 @@
 import { getLatestPosts } from '@/lib/posts';
 import PostListSection from '@/app/posts/_components/PostListSection';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
-import SidebarContentAds from '@/components/SidebarContentAds';
+import CardAd from '@/components/sidebar-cards/CardAd';
+import CardPopularPosts from '@/components/sidebar-cards/CardPopularPosts';
+import CardProfile from '@/components/sidebar-cards/CardProfile';
 
 export default async function LatestPostsPage() {
   const latestPosts = await getLatestPosts(20); // 取得件数は調整
@@ -24,7 +26,11 @@ export default async function LatestPostsPage() {
   );
 
   const rightContent = (
-    <SidebarContentAds /> // 広告用のサイドバーコンポーネント
+    <div className="space-y-6">
+      <CardAd /> // 広告用のサイドバーコンポーネント
+      <CardPopularPosts /> // 広告用のサイドバーコンポーネント
+      <CardProfile /> // 広告用のサイドバーコンポーネント
+    </div>
   );
 
   return (

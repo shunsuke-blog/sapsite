@@ -7,8 +7,10 @@ import Image from 'next/image'; // Imageコンポーネントをインポート
 import Link from 'next/link'; // Linkコンポーネントをインポート (パンくずリスト用)
 import { formatDate } from '@/lib/utils'; // 日付フォーマット関数をインポート
 import TwoColumnLayout from '@/components/TwoColumnLayout';
+import CardTableOfContents from '@/components/sidebar-cards/CardTableOfContents';
+import CardPopularPosts from '@/components/sidebar-cards/CardPopularPosts';
 import SidebarContentTableOfContents from '@/components/SidebarContentTableOfContents';
-import { CATEGORY_SLUG_MAP, getSlugFromDisplayName } from '@/constants/categories';
+import { getSlugFromDisplayName } from '@/constants/categories';
 
 
 interface BlogDetailPageProps {
@@ -133,7 +135,10 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   // // 右側のサイドコンテンツを定義
   const rightContent = (
-    <SidebarContentTableOfContents postContentHtml={cleanBody} />
+    <div className="space-y-6"> {/* 各カード間の余白 */}
+      {/* 目次カード (記事コンテンツに応じて表示) */}
+      <CardTableOfContents postContentHtml={cleanBody} />
+    </div>
   );
 
   return <TwoColumnLayout left={leftContent} right={rightContent} />;

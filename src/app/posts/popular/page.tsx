@@ -3,7 +3,8 @@
 import { getPopularPosts } from '@/lib/posts';
 import PostListSection from '@/app/posts/_components/PostListSection';
 import TwoColumnLayout from '@/components/TwoColumnLayout';
-import SidebarContentAds from '@/components/SidebarContentAds';
+import CardAd from '@/components/sidebar-cards/CardAd';
+import CardProfile from '@/components/sidebar-cards/CardProfile';
 
 export default async function PopularPostsPage() {
   const popularPosts = await getPopularPosts(20); // 取得件数は調整
@@ -22,7 +23,10 @@ export default async function PopularPostsPage() {
   );
 
   const rightContent = (
-    <SidebarContentAds /> // 広告用のサイドバーコンポーネント
+    <div className="space-y-6">
+      <CardAd />
+      <CardProfile />
+    </div>
   );
 
   return (
