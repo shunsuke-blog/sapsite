@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "isomorphic-dompurify": "^2.26.0",
     "microcms-js-sdk": "^3.2.0",
     "next": "15.4.2",
     "react": "19.1.0",

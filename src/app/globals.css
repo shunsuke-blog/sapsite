@@ -3,15 +3,24 @@
 @theme {
   /* ブランドカラー */
 
-  --color-background: #f8f8f8; /*メイン背景:白 */
-  --color-main: #fff; /*メイン背景:白 */
-  --color-main-text: #333; /*文字色(メイン):Dark Gray */
-  --color-sub-text: #666; /*文字色(サブ):Medium Gray */
-  --color-line: ##e0e0e0; /*区切り線・罫線:Light Gray */
-  --color-accent-1: #8b0000; /*アクセント1:Deep Red */
-  --color-accent-2: #4caf50; /*アクセント2:Soft Green */
-  --color-accent-3: #2196f3; /*アクセント3:Calm Blue */
-  --color-hover: #f5f5f5; /*ホバー:Light Accent Gray */
+  --color-background: #f8f8f8;
+  /*メイン背景:白 */
+  --color-main: #fff;
+  /*メイン背景:白 */
+  --color-main-text: #333;
+  /*文字色(メイン):Dark Gray */
+  --color-sub-text: #666;
+  /*文字色(サブ):Medium Gray */
+  --color-line: ##e0e0e0;
+  /*区切り線・罫線:Light Gray */
+  --color-accent-1: #8b0000;
+  /*アクセント1:Deep Red */
+  --color-accent-2: #4caf50;
+  /*アクセント2:Soft Green */
+  --color-accent-3: #2196f3;
+  /*アクセント3:Calm Blue */
+  --color-hover: #f5f5f5;
+  /*ホバー:Light Accent Gray */
 }
 
 li {

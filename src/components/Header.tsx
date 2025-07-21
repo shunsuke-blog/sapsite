@@ -8,7 +8,6 @@ export default function Header() {
 
   return (
     <header className="top-0 z-50 shadow bg-accent-1">
-      {/* ★修正: items-center を追加して、子要素を垂直方向の中央に揃える */}
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
 
         <Link href="/" className="flex items-center">
