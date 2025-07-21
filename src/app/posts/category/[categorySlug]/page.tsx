@@ -15,8 +15,14 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function CategoryPostsPage({ params }: { params: { categorySlug: string } }) {
-  const categoryName = CATEGORY_SLUG_MAP[params.categorySlug];
+// export default async function CategoryPostsPage({ params }: { params: { categorySlug: string } }) {
+// ★修正箇所1: params の型定義を Promise でラップする★
+export default async function CategoryPostsPage({ params }: { params: Promise<{ categorySlug: string }> }) {
+  // ★修正箇所2: params を await で解決する★
+  const resolvedParams = await params;
+  const categorySlug = resolvedParams.categorySlug;
+  const categoryName = CATEGORY_SLUG_MAP[categorySlug];
+  // const categoryName = CATEGORY_SLUG_MAP[params.categorySlug];
 
   if (!categoryName) {
     notFound();
