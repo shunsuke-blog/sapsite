@@ -5,13 +5,9 @@
 import Link from 'next/link'
 import { useState } from 'react' // 検索窓の入力状態管理に使う（ハンバーガーメニューで使わないなら削除可能）
 import Image from 'next/image';
-
-// 検索アイコン用のシンプルなコンポーネント（必要に応じてReact Iconsなどに置き換え）
-const SearchIcon = () => (
-  <svg className="w-5 h-5 text-main" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-  </svg>
-);
+import React from 'react';
+import { FiSearch } from 'react-icons/fi'; // Feather Iconsの検索アイコンをインポート
+import { MdSearch } from 'react-icons/md'; // Material Design Iconsの検索アイコンをインポート
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false); // ハンバーガーメニューが不要なら削除
@@ -53,7 +49,7 @@ export default function Header() {
           <form onSubmit={handleSearch} className="flex items-center">
             {/* 検索アイコン */}
             <button type="submit" className="p-1">
-              <SearchIcon />
+              <MdSearch className="w-5 h-5 cursor-pointer" />
             </button>
             {/* 検索入力フィールド（普段は隠しておき、クリックで表示するなど、UIは工夫可能） */}
             {/* ここでは常に表示する例 */}

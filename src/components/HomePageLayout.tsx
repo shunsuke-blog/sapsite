@@ -1,10 +1,13 @@
 // src/components/HomePageLayout.tsx
+'use client' // 検索窓の入力状態管理やボタンクリックのために必要になる可能性あり
 
 import Link from 'next/link';
 import PostListSection from '@/app/posts/_components/PostListSection';
 import CategoryButtons from '@/app/posts/_components/CategoryButtons';
 import { Post } from '@/types/post'; // Post型をインポート
 import Image from 'next/image';
+import { useState } from 'react' // 検索窓の入力状態管理に使う（ハンバーガーメニューで使わないなら削除可能）
+import { FiSearch } from 'react-icons/fi'; // Feather Iconsの検索アイコンをインポート
 
 interface HomePageLayoutProps {
   latestPosts: Post[];
@@ -13,6 +16,18 @@ interface HomePageLayoutProps {
 }
 
 export default function HomePageLayout({ latestPosts, popularPosts, categories }: HomePageLayoutProps) {
+
+  const [searchTerm, setSearchTerm] = useState(''); // 検索キーワードの状態
+  // 検索処理のプレースホルダー
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault(); // フォーム送信のデフォルト動作を防ぐ
+    if (searchTerm.trim()) {
+      // ここに検索ページへの遷移ロジックなどを実装
+      // 例: router.push(`/search?q=${searchTerm}`);
+      console.log('Searching for:', searchTerm);
+    }
+  };
+
   return (
     // <main className="container mx-auto p-4">
     <main>
@@ -28,13 +43,30 @@ export default function HomePageLayout({ latestPosts, popularPosts, categories }
         />
         {/* 画像の上に重ねるテキストなどがあればここに追加 */}
         <div className="absolute inset-0 bg-opacity-40 flex items-center justify-center p-4">
-          <div className="text-center text-main-text">
+          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="text-center text-main z-10">
             <h1 className=" text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">
               SAPの森で迷わない。確かな知識と実践のコンパス。
             </h1>
-            <p className="text-lg md:text-xl drop-shadow-md text-sub-text">
+            <p className="text-lg md:text-xl drop-shadow-md text-main mb-4">
               SAPの基礎から応用まで。現場で役立つ実践的なノウハウと、経験者のリアルな備忘録を公開。
             </p>
+            <form onSubmit={handleSearch} className="flex justify-center items-center w-full max-w-xl mx-auto">
+              <input
+                type="text"
+                placeholder="記事を検索..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                // inputの幅を調整し、text-gray-800で入力文字色を指定
+                className="flex-grow px-4 py-2 border-2 border-transparent rounded-md text-black bg-background focus:outline-none focus:ring-2 focus:ring-accent-1"
+              />
+              {/* <button
+                type="submit"
+                className="px-4 py-2 bg-accent-1 text-white rounded-r-md hover:bg-opacity-90 transition-colors duration-200"
+              >
+                <FiSearch className="w-5 h-5" />
+              </button> */}
+            </form>
           </div>
         </div>
       </section>

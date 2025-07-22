@@ -126,6 +126,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                 </li>
               </React.Fragment>
             ))}
+
           </ol>
         </nav>
       </div>
