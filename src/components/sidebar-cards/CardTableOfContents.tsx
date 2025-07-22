@@ -17,7 +17,7 @@ export default function CardTableOfContents({ postContentHtml }: CardTableOfCont
     // （以前の SidebarContentTableOfContents.tsx の内容をそのまま移植）
     const parser = new DOMParser();
     const doc = parser.parseFromString(postContentHtml, 'text/html');
-    const headingElements = doc.querySelectorAll('h1, h2, h3, h4'); // h1も含む
+    const headingElements = doc.querySelectorAll('h2, h3, h4'); // h1も含む
 
     const extractedHeadings = Array.from(headingElements).map((el) => {
       const id = el.id || el.textContent?.trim().replace(/\s+/g, '-').toLowerCase() || `heading-${Math.random().toString(36).substring(7)}`;
@@ -35,7 +35,7 @@ export default function CardTableOfContents({ postContentHtml }: CardTableOfCont
   }, [postContentHtml]);
 
   return (
-    <div className="sticky top-20 p-6 rounded-2xl bg-main shadow-lg overflow-y-auto max-h-[calc(100vh-100px)]">
+    <div className="p-6 rounded-2xl bg-main shadow-lg overflow-y-auto max-h-[calc(100vh-100px)]">
       <h3 className="text-2xl font-bold mb-4 text-main-text">目次</h3>
       {headings.length > 0 ? (
         <nav>

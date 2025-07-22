@@ -35,7 +35,7 @@ export async function getAllPosts(): Promise<Post[]> {
           // 必要なフィールドのみを取得することで、記事本文の無駄な取得を防ぐ
           // 個別記事ページではbodyが必要なので、そこではfieldsを指定しないか、別途取得する
           fields:
-            "id,title,category,thumbnail,createdAt,updatedAt,publishedAt,revisedAt,summary",
+            "id,title,category,module,technology,purpose,level,thumbnail,createdAt,updatedAt,publishedAt,revisedAt",
         },
       });
 
@@ -102,7 +102,6 @@ export async function getPopularPosts(limit: number): Promise<Post[]> {
  * @returns 該当する記事オブジェクト、見つからない場合はundefined
  */
 export async function getPostBySlug(slug: string): Promise<Post | undefined> {
-
   const allPosts = await getAllPosts(); // このgetAllPostsはfieldsでbodyを除外している
   const foundPost = allPosts.find((post) => post.slug === slug);
 

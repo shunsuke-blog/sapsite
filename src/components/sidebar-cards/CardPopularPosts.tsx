@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { getPopularPosts } from '@/lib/posts'; // 人気記事取得関数をインポート
 
 export default async function CardPopularPosts() {
-  const popularPosts = await getPopularPosts(5); // 人気記事を5件取得
+  const popularPosts = await getPopularPosts(2); // 人気記事を5件取得
 
   if (popularPosts.length === 0) {
     return null; // 記事がない場合は何も表示しない

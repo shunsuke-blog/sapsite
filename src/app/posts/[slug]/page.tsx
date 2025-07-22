@@ -9,7 +9,8 @@ import { formatDate } from '@/lib/utils'; // 日付フォーマット関数を�
 import TwoColumnLayout from '@/components/TwoColumnLayout';
 import CardTableOfContents from '@/components/sidebar-cards/CardTableOfContents';
 import CardPopularPosts from '@/components/sidebar-cards/CardPopularPosts';
-import SidebarContentTableOfContents from '@/components/SidebarContentTableOfContents';
+import CardProfile from '@/components/sidebar-cards/CardProfile';
+import CardAd from '@/components/sidebar-cards/CardAd';
 import { getSlugFromDisplayName } from '@/constants/categories';
 
 
@@ -135,9 +136,13 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   // // 右側のサイドコンテンツを定義
   const rightContent = (
-    <div className="space-y-6"> {/* 各カード間の余白 */}
+    // < className="sticky top-6 "> {/* 各カード間の余白 */}
+    <div className="space-y-6 sticky top-6"> {/* 各カード間の余白 */}
       {/* 目次カード (記事コンテンツに応じて表示) */}
       <CardTableOfContents postContentHtml={cleanBody} />
+      <CardAd />
+      {/* <CardPopularPosts /> */}
+      {/* <CardProfile /> */}
     </div>
   );
 
