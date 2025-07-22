@@ -7,7 +7,6 @@ import CategoryButtons from '@/app/posts/_components/CategoryButtons';
 import { Post } from '@/types/post'; // Post型をインポート
 import Image from 'next/image';
 import { useState } from 'react' // 検索窓の入力状態管理に使う（ハンバーガーメニューで使わないなら削除可能）
-import { FiSearch } from 'react-icons/fi'; // Feather Iconsの検索アイコンをインポート
 
 interface HomePageLayoutProps {
   latestPosts: Post[];
@@ -23,18 +22,16 @@ export default function HomePageLayout({ latestPosts, popularPosts, categories }
     e.preventDefault(); // フォーム送信のデフォルト動作を防ぐ
     if (searchTerm.trim()) {
       // ここに検索ページへの遷移ロジックなどを実装
-      // 例: router.push(`/search?q=${searchTerm}`);
       console.log('Searching for:', searchTerm);
     }
   };
 
   return (
-    // <main className="container mx-auto p-4">
     <main>
       {/* ヒーローセクション */}
       <section className="relative w-full h-96 mb-12 rounded-lg overflow-hidden shadow-xl">
         <Image
-          src="/images/hero-image.png" // ★ご自身のヒーロー画像へのパスに変更してください
+          src="/images/hero-image.png" 
           alt="サイトのヒーロー画像"
           fill // 親要素に合わせて画像を埋める
           priority // ページのメイン画像なので優先的に読み込む
@@ -60,12 +57,6 @@ export default function HomePageLayout({ latestPosts, popularPosts, categories }
                 // inputの幅を調整し、text-gray-800で入力文字色を指定
                 className="flex-grow px-4 py-2 border-2 border-transparent rounded-md text-black bg-background focus:outline-none focus:ring-2 focus:ring-accent-1"
               />
-              {/* <button
-                type="submit"
-                className="px-4 py-2 bg-accent-1 text-white rounded-r-md hover:bg-opacity-90 transition-colors duration-200"
-              >
-                <FiSearch className="w-5 h-5" />
-              </button> */}
             </form>
           </div>
         </div>
@@ -82,7 +73,7 @@ export default function HomePageLayout({ latestPosts, popularPosts, categories }
         <h2 className="text-3xl font-bold mb-6 text-brand-primary border-b-2 border-brand-primary pb-2">最新記事</h2>
         <PostListSection posts={latestPosts} />
         <div className="text-right mt-6">
-          <Link href="/posts/popular" className="text-brand-primary hover:underline text-lg font-medium">
+          <Link href="/posts/latest" className="text-brand-primary hover:underline text-lg font-medium">
             最新記事をもっと見る &rarr;
           </Link>
         </div>

@@ -7,7 +7,6 @@ import { useState } from 'react' // 検索窓の入力状態管理に使う（�
 import Image from 'next/image';
 import React from 'react';
 import { FiSearch } from 'react-icons/fi'; // Feather Iconsの検索アイコンをインポート
-import { MdSearch } from 'react-icons/md'; // Material Design Iconsの検索アイコンをインポート
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false); // ハンバーガーメニューが不要なら削除
@@ -48,9 +47,9 @@ export default function Header() {
         <div className="flex-shrink-0 w-[60px] flex items-center justify-end"> {/* w-[60px] でロゴと同じ幅を確保 */}
           <form onSubmit={handleSearch} className="flex items-center">
             {/* 検索アイコン */}
-            <button type="submit" className="p-1">
-              <MdSearch className="w-5 h-5 cursor-pointer" />
-            </button>
+            {/* <button type="submit" className="p-1">
+              <FiSearch className="w-5 h-5 cursor-pointer" />
+            </button> */}
             {/* 検索入力フィールド（普段は隠しておき、クリックで表示するなど、UIは工夫可能） */}
             {/* ここでは常に表示する例 */}
             <input

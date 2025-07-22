@@ -24,7 +24,7 @@ export default function CategoryButtons({ categories }: CategoryButtonsProps) {
           <Link
             key={categorySlug} // key はスラッグにするとよりユニークで安定
             href={`/posts/category/${categorySlug}`} // ★取得したスラッグを使用
-            className="bg-accent-1 text-main px-5 py-2 rounded-full hover:bg-brand-secondary transition-colors duration-200 text-lg font-medium shadow-md hover:shadow-lg"
+            className="bg-accent-1 text-main px-5 py-2 rounded-full hover:bg-brand-secondary transition-colors duration-200 text-lg font-bold shadow-md hover:shadow-lg"
           >
             {categoryDisplayName} {/* ボタンの表示テキストは日本語のまま */}
           </Link>
