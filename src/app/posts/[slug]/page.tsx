@@ -12,7 +12,10 @@ import CardPopularPosts from '@/components/sidebar-cards/CardPopularPosts';
 import CardProfile from '@/components/sidebar-cards/CardProfile';
 import CardAd from '@/components/sidebar-cards/CardAd';
 import { getSlugFromDisplayName } from '@/constants/categories';
-
+// import { Tag } from '@/constants/tags';
+import { Tag } from '@/types/tag';
+import { Category } from '@/types/category';
+import React from 'react';
 
 interface BlogDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -25,11 +28,12 @@ type Thumbnail = {
   width: number;
 };
 
-// カテゴリの型定義を追加
-type Category = {
-  id: string;
-  name: string;
-};
+// // カテゴリの型定義を追加
+// type Category = {
+//   id: string;
+//   name: string;
+//   slug: string;
+// };
 
 // Blogの型を更新: category を追加
 type Blog = {
@@ -37,8 +41,9 @@ type Blog = {
   title: string;
   content: string;
   updatedAt: string;
-  thumbnail?: Thumbnail;
-  category?: Category;
+  thumbnail: Thumbnail;
+  category: Category;
+  tags: Tag[];
   slug: string;
 };
 
@@ -73,52 +78,73 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const updatedDate = formatDate(post.updatedAt);
   const categoryDisplayName = post.category?.name;
   const categorySlug = categoryDisplayName ? getSlugFromDisplayName(categoryDisplayName) : undefined;
+  // const tagSlug = post.tags?.name;
 
   // 左側のメインコンテンツ（記事本体）を定義
   const leftContent = (
     // const leftContent = (
     <article className="bg-main p-4 sm:p-8 rounded-2xl shadow-md">
       {/* パンくずリスト */}
-      <nav className="text-sm font-bold text-sub-text mb-4" aria-label="breadcrumb">
-        <ol className="flex space-x-2">
-          <li>
-            <Link href="/" className="hover:underline mr-5">
-              ホーム
-            </Link>
-          </li>
-          {/* ★修正: categorySlug が存在する場合のみリンクを生成 */}
-          {post.category && categorySlug && ( // categorySlug が取得できた場合のみリンク表示
-            <>
-              <li>▶︎</li> {/* 区切り文字 */}
-              <li>
-                <Link
-                  href={`/posts/category/${categorySlug}`} // ★getSlugFromDisplayName で得たスラッグを使用
-                  className="font-semibold hover:underline ml-5"
-                >
-                  {post.category.name} {/* 表示名はそのまま */}
-                </Link>
-              </li>
-            </>
-          )}
-          {/* 記事タイトルは、現在のページなのでリンクは不要 */}
-          {/* <li>&gt;</li>
-          <li>{post.title}</li> */}
-        </ol>
-      </nav>
+      <div className="flex justify-between items-center">
+        <nav className="text-sm font-bold text-sub-text mb-4" aria-label="breadcrumb">
+          <ol className="flex space-x-2">
+            <li>
+              <Link href="/" className="hover:underline mr-5">
+                ホーム
+              </Link>
+            </li>
+            {/* ★修正: categorySlug が存在する場合のみリンクを生成 */}
+            {post.category && categorySlug && ( // categorySlug が取得できた場合のみリンク表示
+              <>
+                <li>▶︎</li> {/* 区切り文字 */}
+                <li>
+                  <Link
+                    href={`/posts/category/${categorySlug}`} // ★getSlugFromDisplayName で得たスラッグを使用
+                    className="font-semibold hover:underline ml-5"
+                  >
+                    {post.category.name}
+                  </Link>
+                </li>
+              </>
+            )}
+          </ol>
+        </nav>
+
+        <nav className="text-sm font-bold text-sub-text mb-4" aria-label="tags breadcrumb">
+          <ol className="flex space-x-2 justify-end">
+            {/* post.tags の最初の3つなど、表示数を制限することも検討 */}
+            {/* {post.tags.slice(0, 3).map((tag, index) => ( // 例: 最大3つ表示 */}
+            {post.tags && post.tags.length > 0 && post.tags.slice(0, 3).map((tag, index) => ( // 例: 最大3つ表示
+              <React.Fragment key={tag.id}>
+                {index > 0 && <li>▶︎</li>} {/* 最初のタグ以外は区切り文字を追加 */}
+                <li>
+                  {/* タグのスラッグ（tag.slug）を使ってリンクを生成 */}
+                  {/* tag.slug は microCMS側で設定していることを前提とします */}
+                  <Link href={`/posts/tag/${tag.slug}`} className="hover:underline">
+                    {tag.name}
+                  </Link>
+                </li>
+              </React.Fragment>
+            ))}
+          </ol>
+        </nav>
+      </div>
 
       {/* サムネイル */}
-      {post.thumbnail && (
-        <div className="relative w-full aspect-video mb-8 rounded-lg overflow-hidden">
-          <Image
-            src={post.thumbnail.url}
-            alt={`${post.title}のサムネイル`}
-            fill
-            priority
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 66vw"
-          />
-        </div>
-      )}
+      {
+        post.thumbnail && (
+          <div className="relative w-full aspect-video mb-8 rounded-lg overflow-hidden">
+            <Image
+              src={post.thumbnail.url}
+              alt={`${post.title}のサムネイル`}
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 66vw"
+            />
+          </div>
+        )
+      }
 
       {/* タイトルと更新日 */}
       <div className="mb-8">
@@ -131,7 +157,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
         className="prose max-w-none lg:prose-lg text-main-text"
         dangerouslySetInnerHTML={{ __html: cleanBody }}
       />
-    </article>
+    </article >
   );
 
   // // 右側のサイドコンテンツを定義

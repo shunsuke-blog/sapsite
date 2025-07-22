@@ -35,7 +35,7 @@ export async function getAllPosts(): Promise<Post[]> {
           // 必要なフィールドのみを取得することで、記事本文の無駄な取得を防ぐ
           // 個別記事ページではbodyが必要なので、そこではfieldsを指定しないか、別途取得する
           fields:
-            "id,title,category,module,technology,purpose,level,thumbnail,createdAt,updatedAt,publishedAt,revisedAt",
+            "id,title,category,tag,thumbnail,createdAt,updatedAt,publishedAt,revisedAt",
         },
       });
 
@@ -111,7 +111,6 @@ export async function getPostBySlug(slug: string): Promise<Post | undefined> {
       const data: MicroCMSBlogContent = await client.get({
         endpoint: "blogs",
         contentId: foundPost.id,
-        // ここではbodyを含む全てのフィールドを取得
       });
       return transformMicroCMSContentToPost(data);
     } catch (error) {
