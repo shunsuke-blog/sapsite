@@ -1,6 +1,6 @@
 // src/constants/tag.ts
 
-//翔分類のマッピング
+//小分類のマッピング
 export const TAG_SLUG_MAP: { [key: string]: string } = {
   intro: "SAP入門",
   dev: "SAP開発",
@@ -26,4 +26,3 @@ export type Tag = {
   id: string;
   name: string;
 };
-
